@@ -6,4 +6,4 @@ include_once("./controllers/Pessoa.php");
 
 $pessoa = new Pessoa();
 
-echo json_encode($pessoa->todos());
+$pessoa->editar($_REQUEST);

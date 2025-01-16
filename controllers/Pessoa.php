@@ -8,27 +8,41 @@ use models\Pessoa as modelPessoa;
 
 class Pessoa
 {
-    public static $pessoaModel;
+    public $pessoaModel;
 
-    public static function editar($dados)
+    public function __construct()
     {
-        self::$pessoaModel = new modelPessoa();
+        $this->pessoaModel = new modelPessoa();
+    }
 
+    public function todos()
+    {
+        return $this->pessoaModel->todos();
+    }
+
+    public function pegarProId()
+    {
+        return $this->pessoaModel->pegarPorId();
+    }
+
+    public function cadastrar($dados)
+    {
         if (!$dados) {
             return  print_r(json_encode(["erro" => TRUE, "msg" => "Dados não informados"]));
         }
 
         $nome = isset($dados["nome"]) ? $dados["nome"] : NULL;
-        $idade = isset($dados["idade"]) ? filter_var($dados["idade"], FILTER_SANITIZE_NUMBER_INT) : NULL;
+        $idade = isset($dados["idade"]) ? $dados["idade"] : NULL;
 
-        if (!$nome || !$idade) {
-            if (!is_numeric($idade)) {
-                return print_r(json_encode(["erro" => TRUE, "msg" => "Idade deve ser um numero"]));
-            }
-            return print_r(json_encode(["erro" => TRUE, "msg" => "Campos obrigatórios"]));
+        if (!is_numeric($idade)) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => "Idade deve ser um numero"]));
         }
 
-        $cadastrar = self::$pessoaModel->cadastrar($dados);
+        if (!$nome || !$idade) {
+            return;
+        }
+
+        $cadastrar = $this->pessoaModel->cadastrar($dados);
 
         if ($cadastrar->erro) {
             return print_r(json_encode(["erro" => TRUE, "msg" => $cadastrar->msg]));
@@ -37,37 +51,51 @@ class Pessoa
         return print_r(json_encode(["erro" => FALSE, "msg" => "Pessoa cadastrada com sucesso"]));
     }
 
-    public static function cadastrar($dados)
+    public function editar($dados)
     {
-        self::$pessoaModel = new modelPessoa();
-
         if (!$dados) {
             return  print_r(json_encode(["erro" => TRUE, "msg" => "Dados não informados"]));
         }
 
+        $id = isset($dados["id"]) ? $dados["id"] : NULL;
         $nome = isset($dados["nome"]) ? $dados["nome"] : NULL;
-        $idade = isset($dados["idade"]) ? filter_var($dados["idade"], FILTER_SANITIZE_NUMBER_INT) : NULL;
+        $idade = isset($dados["idade"]) ? ($dados["idade"]) : NULL;
+
+        if (!is_numeric($id)) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => "Psessoa não existe"]));
+        }
+
+        if (!is_numeric($idade)) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => "Idade deve ser um numero"]));
+        }
 
         if (!$nome || !$idade) {
-            if (!is_numeric($idade)) {
-                return print_r(json_encode(["erro" => TRUE, "msg" => "Idade deve ser um numero"]));
-            }
-            return print_r(json_encode(["erro" => TRUE, "msg" => "Campos obrigatórios"]));
+            return;
         }
 
-        $cadastrar = self::$pessoaModel->cadastrar($dados);
+        $editar = $this->pessoaModel->editar($dados);
 
-        if ($cadastrar->erro) {
-            return print_r(json_encode(["erro" => TRUE, "msg" => $cadastrar->msg]));
+        if ($editar->erro) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => $editar->msg]));
         }
 
-        return print_r(json_encode(["erro" => FALSE, "msg" => "Pessoa cadastrada com sucesso"]));
+        return print_r(json_encode(["erro" => FALSE, "msg" => "Pessoa editada com sucesso"]));
     }
 
-    public static function todos()
+    public function excluir($dados)
     {
-        self::$pessoaModel = new modelPessoa();
+        $id = isset($dados["id"]) ? $dados["id"] : NULL;
 
-        return self::$pessoaModel->todos();
+        if (!is_numeric($id)) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => "Pessoa não existe"]));
+        }
+
+        $excluir = $this->pessoaModel->excluir($id);
+
+        if ($excluir->erro) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => $excluir->erro]));
+        }
+
+        return print_r(json_encode(["erro" => FALSE, "msg" => NULL]));
     }
 }

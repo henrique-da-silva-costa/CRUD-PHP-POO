@@ -4,4 +4,6 @@ use controllers\Pessoa;
 
 include_once("./controllers/Pessoa.php");
 
-Pessoa::cadastrar($_REQUEST);
+$pessoa = new Pessoa();
+
+$pessoa->cadastrar($_REQUEST);
