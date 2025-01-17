@@ -5,7 +5,6 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 
 class Banco
 {
-
     public $host;
     public $nomeBanco;
     public $usuarioNome;

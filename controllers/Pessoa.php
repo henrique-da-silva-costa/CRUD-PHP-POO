@@ -31,15 +31,30 @@ class Pessoa
             return  print_r(json_encode(["erro" => TRUE, "msg" => "Dados não informados"]));
         }
 
-        $nome = isset($dados["nome"]) ? $dados["nome"] : NULL;
         $idade = isset($dados["idade"]) ? $dados["idade"] : NULL;
 
-        if (!is_numeric($idade)) {
-            return print_r(json_encode(["erro" => TRUE, "msg" => "Idade deve ser um numero"]));
+        foreach ($dados as $valor) {
+            if (!$valor) {
+                return print_r(json_encode(["erro" => TRUE]));
+            }
+
+            if (strlen($valor) > 10) {
+                return print_r(json_encode(["erro" => TRUE]));
+            }
+
+            if (strlen($valor) > 255) {
+                return print_r(json_encode(["erro" => TRUE]));
+            }
         }
 
-        if (!$nome || !$idade) {
-            return;
+        $existe = $this->pessoaModel->existe($dados);
+
+        if ($existe) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => "Essa pessoa já exsite"]));
+        }
+
+        if (strlen($idade) > 0 && !is_numeric($idade)) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => "Idade deve ser um numero"]));
         }
 
         $cadastrar = $this->pessoaModel->cadastrar($dados);
@@ -58,19 +73,30 @@ class Pessoa
         }
 
         $id = isset($dados["id"]) ? $dados["id"] : NULL;
-        $nome = isset($dados["nome"]) ? $dados["nome"] : NULL;
         $idade = isset($dados["idade"]) ? ($dados["idade"]) : NULL;
 
         if (!is_numeric($id)) {
             return print_r(json_encode(["erro" => TRUE, "msg" => "Psessoa não existe"]));
         }
 
-        if (!is_numeric($idade)) {
-            return print_r(json_encode(["erro" => TRUE, "msg" => "Idade deve ser um numero"]));
+        foreach ($dados as $valor) {
+            if (!$valor) {
+                return print_r(json_encode(["erro" => TRUE]));
+            }
+
+            if (strlen($valor) > 255) {
+                return print_r(json_encode(["erro" => TRUE]));
+            }
         }
 
-        if (!$nome || !$idade) {
-            return;
+        $existe = $this->pessoaModel->existe($dados);
+
+        if ($existe) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => "Essa pessoa já exsite"]));
+        }
+
+        if (strlen($idade) > 0 && !is_numeric($idade)) {
+            return print_r(json_encode(["erro" => TRUE, "msg" => "Idade deve ser um numero"]));
         }
 
         $editar = $this->pessoaModel->editar($dados);

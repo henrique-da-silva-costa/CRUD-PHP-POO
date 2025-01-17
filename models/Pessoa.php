@@ -32,6 +32,27 @@ class Pessoa
             return [];
         }
     }
+    public function existe($dados)
+    {
+        try {
+            $this->dbConexao->conexao();
+
+            $id = isset($dados["id"]) ? $dados["id"] : 0;
+            $nome = isset($dados["nome"]) ? $dados["nome"] : NULL;
+            $idade = isset($dados["idade"]) ? $dados["idade"] : NULL;
+
+            $sql = "SELECT * FROM pessoas WHERE nome = :nome AND idade = :idade AND id <> :id";
+            $stmt = $this->dbConexao->pdo->prepare($sql);
+            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":nome", $nome);
+            $stmt->bindParam(":idade", $idade);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\Throwable $th) {
+            print_r($th->getMessage());
+            return NULL;
+        }
+    }
 
     public function pegarPorId()
     {
