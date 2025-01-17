@@ -33,12 +33,12 @@ class Pessoa
 
         $idade = isset($dados["idade"]) ? $dados["idade"] : NULL;
 
-        foreach ($dados as $valor) {
+        foreach ($dados as $key => $valor) {
             if (!$valor) {
                 return print_r(json_encode(["erro" => TRUE]));
             }
 
-            if (strlen($valor) > 10) {
+            if (strlen($valor) > 10 && $key == "idade") {
                 return print_r(json_encode(["erro" => TRUE]));
             }
 
@@ -79,8 +79,12 @@ class Pessoa
             return print_r(json_encode(["erro" => TRUE, "msg" => "Psessoa não existe"]));
         }
 
-        foreach ($dados as $valor) {
+        foreach ($dados as $key => $valor) {
             if (!$valor) {
+                return print_r(json_encode(["erro" => TRUE]));
+            }
+
+            if (strlen($valor) > 10 && $key == "idade") {
                 return print_r(json_encode(["erro" => TRUE]));
             }
 
