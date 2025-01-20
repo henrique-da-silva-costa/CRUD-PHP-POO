@@ -1,5 +1,9 @@
 # Projeto Crud com PHP -BACK-END
 
+# Tecnologias usadas.
+
+PHP e Mysql no back-end e react-JS no front-end.
+
 # Para iniciar o projeto.
 
 Tenha a versao 8 do PHP instalado em suda maquina, em seguida rode o comando php -S localhost:1999
