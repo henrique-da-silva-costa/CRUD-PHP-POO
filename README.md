@@ -22,15 +22,15 @@ Exsite a classe Pessoa com metodos e atributos publicos
 
 ### metodos
 
-* todos -> Lista todas as pessoas, podendo filtrar por nome.
+* todos -> Lista todas as pessoas, podendo filtrar por nome.
 
-* pegarPorID -> Lista a pessoa pelo paramentro(id)
+* pegarPorID -> Lista a pessoa pelo paramentro(id)
 
-* Cadastrar -> Cadastra uma pessoa e faz validações.
+* Cadastrar -> Cadastra uma pessoa e faz validações.
 
-* Editar -> edita uma pessoa e faz validações.
+* Editar -> edita uma pessoa e faz validações.
 
-* Excluir -> exclui uma pessoa e faz validações.
+* Excluir -> exclui uma pessoa e faz validações.
 
 ## Models
 
@@ -38,32 +38,32 @@ Exsite a classe Pessoa com metodos e atributos publicos
 
 ### atributo.
 
-* dbConexao -> faz a cconexao com o banco de dados.
+* dbConexao -> faz a cconexao com o banco de dados.
 
 ### metodos
 
-* todos -> Lista todas as pessoas, podendo filtrar por nome.
+* todos -> Lista todas as pessoas, podendo filtrar por nome.
 
-* pegarPorID -> Lista a pessoa pelo paramentro(id)
+* pegarPorID -> Lista a pessoa pelo paramentro(id)
 
-* Cadastrar -> Cadastrar uma pessoa.
+* Cadastrar -> Cadastrar uma pessoa.
 
-* Editar -> edita uma pessoa.
+* Editar -> edita uma pessoa.
 
-* Excluir -> exclui uma pessoa.
+* Excluir -> exclui uma pessoa.
 
-* Existe -> verifica se existe uma pessoa com o mesmo nome e idade.
+* Existe -> verifica se existe uma pessoa com o mesmo nome e idade.
 
 ## Rotas.
 
 Foi feito de uma forma muito simples.
 
-* Cadastrar -> /cadastrar.php
+* Cadastrar -> /cadastrar.php
 
-* Listar -> /index.php
+* Listar -> /index.php
 
-* Editar -> /editar.php
+* Editar -> /editar.php
 
-* Excluir -> /excluir.php
+* Excluir -> /excluir.php
 
 
